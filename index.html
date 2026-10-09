@@ -1,166 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Myco Ramos | Portfolio</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
         @custom-variant dark (&:where(.dark, .dark *));
+        @layer components {
+            .btn-primary {
+                @apply px-6 py-3 bg-orange-600 text-white hover:bg-orange-500 transition-colors dark:bg-orange-700;
+            }
+        }
+    </style>
+    <style>
+        :root {
+            color-scheme: light;
+            --bg: #fff7ed; --panel: rgba(255, 237, 213, .48); --text: #431407;
+            --muted: #7c4a32; --accent: #ea580c; --border: rgba(255, 247, 237, .8);
+            --glass-shadow: rgba(154, 52, 18, .16);
+        }
+        .dark {
+            color-scheme: dark;
+            --bg: #1c1917; --panel: rgba(67, 35, 20, .52); --text: #fff7ed;
+            --muted: #fed7aa; --accent: #fb923c; --border: rgba(251, 146, 60, .2);
+            --glass-shadow: rgba(124, 45, 18, .32);
+        }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0; padding: 24px;
+            background: radial-gradient(ellipse at 15% 10%, rgba(251, 146, 60, .2), transparent 38%),
+                        radial-gradient(ellipse at 85% 90%, rgba(234, 88, 12, .14), transparent 36%), var(--bg);
+            color: var(--text); font: 16px/1.6 Arial, sans-serif;
+        }
+        .container { width: min(760px, 100%); margin: auto; }
+        .glass {
+            background: var(--panel); border: 1px solid var(--border); border-radius: 20px;
+            box-shadow: 0 12px 32px var(--glass-shadow), inset 0 1px rgba(255,255,255,.3);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            transition: box-shadow .2s ease, transform .2s ease;
+        }
+        .service:hover { transform: translateY(-3px); box-shadow: 0 16px 36px var(--glass-shadow), inset 0 1px rgba(255,255,255,.3); }
+        header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+        nav { display: flex; gap: 16px; }
+        a { color: inherit; text-decoration: none; }
+        a:not(.btn-primary):hover { color: var(--accent); }
+        button, .btn-primary { border-radius: 999px; cursor: pointer; font: inherit; }
+        .btn-primary:hover { color: white; }
+        main { display: grid; gap: 20px; margin-top: 24px; }
+        section { padding: 28px; }
+        .hero { padding: 64px 28px; text-align: center; }
+        h1 { max-width: 600px; margin: 8px auto 16px; font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; }
+        h2 { margin: 0 0 10px; }
+        p { margin: 0; color: var(--muted); }
+        .eyebrow { color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: .12em; }
+        .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .service { padding: 18px; }
+        .service h3 { margin: 0 0 6px; }
+        footer { padding: 24px 0 8px; color: var(--muted); text-align: center; font-size: .875rem; }
+        @media (max-width: 560px) {
+            body { padding: 14px; }
+            header { flex-wrap: wrap; gap: 12px; }
+            nav { order: 3; width: 100%; justify-content: center; }
+            section { padding: 22px; }
+            .services { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
-
-<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
-
-    <h1 class="text-2xl font-bold underline text-red-700 text-center dark:text-red-300">
-        Myco
-    </h1>
-
-    <button id="switch" type="button" aria-pressed="false" class="bg-black text-white text-xs px-4 py-2 rounded-md block mx-auto dark:bg-white dark:text-black">
-        Toggle dark mode
-    </button>
-
-   
-    <header class="mt-1">
-        <nav class="flex justify-between items-center px-0 text-xs">
-
-            <span>
-                @myco
-               
-            </span>
-
-            <ul class="flex gap-5">
-                <li>
-                    <a href="#projects">Projects</a>
-                </li>
-
-                <li>
-                    <a href="#services">Services</a>
-                </li>
-
-                <li>
-                    <a href="#contact">Contact Me</a>
-                </li>
-            </ul>
-
-        </nav>
-    </header>
-    <main class="grid grid-cols-3 gap-5 mx-6 mt-16">
-
-        <section
-            id="projects"
-            class="h-80 border border-black text-center p-3 bg-amber-500 dark:border-slate-500 dark:bg-slate-800">
-
-            <h2 class="text-2xl font-bold text-pink-400 dark:text-pink-300">
-                My Projects
-            </h2>
-
-            <p class="text-xs">
-                Personal portfolio, payroll system, company website,
-                startup website, and compliance monitoring system.
-            </p>
-
-        </section>
-        <section
-            id="services"
-            class="h-80 border border-black text-center p-3 bg-red-600 dark:border-slate-500 dark:bg-slate-800">
-
-            <h2 class="text-2xl font-bold text-pink-400 dark:text-pink-300">
-                My Services
-            </h2>
-
-            <p class="text-xs">
-                Website Creation, System Creation, AI Automation,
-                Database Management, Project Management, Systems Analyst
-            </p>
-
-        </section>
-
-
-       
-        <section
-            id="contact"
-            class="h-80 border border-black text-center p-3 dark:border-slate-500">
-
-            <h2 class="text-2xl font-bold text-pink-400 dark:text-pink-300">
-                Let's build together!
-            </h2>
-
-            <form class="flex flex-col mt-1">
-
-                <label for="name" class="text-xs">
-                    Name
-                </label>
-
-                <input
-                    type="text"
-                    id="name"
-                    class="border-none outline-none text-xs dark:bg-slate-800"
-                    required>
-
-
-                <label for="email" class="text-xs mt-8">
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    class="border outline text-xs dark:border-slate-500 dark:bg-slate-800"
-                    required>
-
-
-                <label for="message" class="text-xs mt-8">
-                    Message
-                   
-                </label>
-
-                <textarea
-                    id="message"
-                    rows="5"
-                    class="border-none outline-none text-xs resize-none dark:bg-slate-800"
-                    required></textarea>
-
-
-                <button
-                    type="submit"
-                    class="bg-slate-900 text-white text-xs py-2 rounded-lg mt-2 dark:bg-white dark:text-slate-900">
-                    Send Message
-                </button>
-
-            </form>
-
-        </section>
-
-    </main>
-
-</body>
-
-</html>
-
-<footer class="mt-16 bg-black text-white text-center py-4">
-    <p class="text-xs">
-        &copy; <span id="year"></span> Myco. All rights reserved.
-    </p>
-    <p class="text-xs mt-1">
-       
-    </p>
-</footer>
-
-<script>
-    const today = new Date();
-
-    document.getElementById("year").textContent = today.getFullYear();
-
-    const themeToggle = document.getElementById("switch");
-    themeToggle.addEventListener("click", () => {
-        const isDark = document.body.classList.toggle("dark");
-        themeToggle.setAttribute("aria-pressed", String(isDark));
-    });
-</script>
-
+<body>
+    <div class="container">
+        <header class="glass">
+            <a href="#" aria-label="Myco home"><strong>@myco</strong></a>
+            <nav aria-label="Main navigation">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <button id="themeToggle" class="btn-primary" type="button" aria-pressed="true">Light mode</button>
+        </header>
+        <main>
+            <section class="glass hero" id="about">
+                <p class="eyebrow">Web designer & developer</p>
+                <h1>Simple digital experiences for growing businesses.</h1>
+                <p>I’m Myco Ramos. I build useful websites, business systems, and automations.</p>
+                <a class="btn-primary" href="#contact" style="display:inline-block;margin-top:22px">Let’s talk</a>
+            </section>
+            <section id="services">
+                <h2>Services</h2>
+                <div class="services">
+                    <article class="glass service"><h3>Websites</h3><p>Responsive sites made for your customers.</p></article>
+                    <article class="glass service"><h3>Business systems</h3><p>Custom tools to make work easier.</p></article>
+                    <article class="glass service"><h3>Automation</h3><p>Practical automation for everyday tasks.</p></article>
+                </div>
+            </section>
+            <section class="glass" id="contact">
+                <h2>Contact</h2>
+                <p>Have a project in mind? <a href="mailto:hello@myco.dev" style="color:var(--accent)">Email me</a>.</p>
+            </section>
+        </main>
+        <footer>&copy; <span id="year"></span> Myco Ramos</footer>
+    </div>
+    <script>
+        const page = document.documentElement;
+        const toggle = document.getElementById('themeToggle');
+        toggle.addEventListener('click', () => {
+            const dark = page.classList.toggle('dark');
+            toggle.textContent = dark ? 'Light mode' : 'Dark mode';
+            toggle.setAttribute('aria-pressed', String(dark));
+        });
+     
+    </script>
 </body>
 </html>
-
 
