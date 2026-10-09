@@ -1,65 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Myco | Portfolio</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
-
-<body>
-    <h1>Mark Ryan Zipagan</h1>
-
-     <h1 class="text-3xl font-bold underline text-red-700">
-      Tharver
-    </h1>
-    <button id="switch">Switch</button>
-    <header>
-        <nav>
-            <span>@hxsdmark</span>
-            <ul>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact Me</a></li>
+<body class="bg-white text-gray-800">
+    <header class="border-b">
+        <nav class="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 px-6 py-5 sm:flex-row">
+            <a href="#home" class="text-xl font-bold text-gray-900">Myco</a>
+            <ul class="flex gap-6 text-sm">
+                <li><a class="hover:text-blue-600" href="#projects">Projects</a></li>
+                <li><a class="hover:text-blue-600" href="#services">Services</a></li>
+                <li><a class="hover:text-blue-600" href="#contact">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
-        <section id="projects"> 
-            <h2 class="projects">My Projects</h2>
-            <p>Personal portfolio, payroll system, company website, startup website, and compliance monitoring system.
-            </p>
+    <main id="home" class="mx-auto max-w-4xl px-6">
+        <section class="py-16">
+            <h1 class="text-4xl font-bold text-gray-900">Hi, I'm Myco.</h1>
+            <p class="mt-4 max-w-2xl text-lg text-gray-600">I create websites and systems to help people and businesses work better.</p>
         </section>
 
-        <section id="services">
-            <h2 class="services">My Services</h2>
-            <p>Website Creation, System Creation, AI Automation, Database Management, Project Management, Systems
-                Analyst</p>
+        <section id="projects" class="border-t py-10">
+            <h2 class="text-2xl font-bold text-gray-900">Projects</h2>
+            <ul class="mt-4 list-inside list-disc space-y-2 text-gray-600">
+                <li>Personal and company websites</li>
+                <li>Payroll systems</li>
+                <li>Compliance monitoring systems</li>
+            </ul>
         </section>
 
-        <section id="contact">
-            <h2 class="contact">Let's build together!</h2>
-            <form action="#">
-                <!-- Name -->
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" required>
+        <section id="services" class="border-t py-10">
+            <h2 class="text-2xl font-bold text-gray-900">Services</h2>
+            <p class="mt-4 text-gray-600">Website and system creation, AI automation, database management, project management, and systems analysis.</p>
+        </section>
 
-                <!-- Email -->
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" required>
-
-                <!-- Message -->
-                <label for="message">Message</label>
-                <textarea name="message" id="message" rows="5" required></textarea>
-
-                <!-- Submit -->
-                <button type="submit">Send Message</button>
+        <section id="contact" class="border-t py-10">
+            <h2 class="text-2xl font-bold text-gray-900">Contact</h2>
+            <p class="mt-2 text-gray-600">Have a project in mind? Send me a message.</p>
+            <form action="#" method="get" class="mt-6 grid max-w-lg gap-4">
+                <div>
+                    <label for="name" class="mb-1 block text-sm font-medium">Name</label>
+                    <input class="w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none" type="text" id="name" name="name" required>
+                </div>
+                <div>
+                    <label for="email" class="mb-1 block text-sm font-medium">Email</label>
+                    <input class="w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none" type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="message" class="mb-1 block text-sm font-medium">Message</label>
+                    <textarea class="w-full rounded border border-gray-300 px-3 py-2 focus:border-blue-500 focus:outline-none" id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button class="w-fit rounded bg-blue-600 px-5 py-2 font-medium text-white hover:bg-blue-700" type="submit">Send message</button>
             </form>
         </section>
     </main>
 
-    <!-- <script src="script.js"></script> -->
+    <footer class="border-t py-5 text-center text-sm text-gray-500">
+        <p>&copy; 2026 Myco</p>
+    </footer>
 </body>
+</html>
