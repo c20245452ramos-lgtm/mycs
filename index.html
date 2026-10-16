@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Myco Ramos | Portfolio</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+   
+     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/gsap.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/Flip.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/gsap@3.15/dist/ScrollTrigger.min.js"></script>
+     
     <style type="text/tailwindcss">
+
+      
         @custom-variant dark (&:where(.dark, .dark *));
         @layer components {
             .btn-primary {
@@ -43,9 +50,11 @@
         }
         .service:hover { transform: translateY(-3px); box-shadow: 0 16px 36px var(--glass-shadow), inset 0 1px rgba(255,255,255,.3); }
         header { display: flex; align-items: center; justify-content: space-between; padding: 14px 18px; }
+        .header-actions { display: flex; align-items: center; gap: 10px; }
         nav { display: flex; gap: 16px; }
         a { color: inherit; text-decoration: none; }
         a:not(.btn-primary):hover { color: var(--accent); }
+        .logo { display: inline-block; }
         button, .btn-primary { border-radius: 999px; cursor: pointer; font: inherit; }
         .btn-primary:hover { color: white; }
         main { display: grid; gap: 20px; margin-top: 24px; }
@@ -54,37 +63,44 @@
         h1 { max-width: 600px; margin: 8px auto 16px; font-size: clamp(2rem, 6vw, 3.5rem); line-height: 1.1; }
         h2 { margin: 0 0 10px; }
         p { margin: 0; color: var(--muted); }
+        .contact-highlight { color: var(--accent); transform: scale(1.03); transition: color .3s ease; }
         .eyebrow { color: var(--accent); font-weight: bold; text-transform: uppercase; letter-spacing: .12em; }
-        .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-        .service { padding: 18px; }
-        .service h3 { margin: 0 0 6px; }
+        .services, .process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .service, .process-step { padding: 18px; }
+        .service h3, .process-step h3 { margin: 0 0 6px; }
         footer { padding: 24px 0 8px; color: var(--muted); text-align: center; font-size: .875rem; }
         @media (max-width: 560px) {
             body { padding: 14px; }
             header { flex-wrap: wrap; gap: 12px; }
             nav { order: 3; width: 100%; justify-content: center; }
             section { padding: 22px; }
-            .services { grid-template-columns: 1fr; }
+            .services, .process-steps { grid-template-columns: 1fr; }
+        }
+        @media (prefers-reduced-motion: reduce) {
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header class="glass">
-            <a href="#" aria-label="Myco home"><strong>@myco</strong></a>
+            <a class="logo" href="#" aria-label="Myco home"><strong>@myco</strong></a>
             <nav aria-label="Main navigation">
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
+                <a href="#process">Process</a>
                 <a href="#contact">Contact</a>
             </nav>
-            <button id="themeToggle" class="btn-primary" type="button" aria-pressed="true">Light mode</button>
+            <div class="header-actions">
+                <button id="themeToggle" class="btn-primary" type="button" aria-pressed="true">Light mode</button>
+                <button id="refreshPage" class="btn-primary" type="button">Refresh</button>
+            </div>
         </header>
         <main>
             <section class="glass hero" id="about">
                 <p class="eyebrow">Web designer & developer</p>
                 <h1>Simple digital experiences for growing businesses.</h1>
                 <p>I’m Myco Ramos. I build useful websites, business systems, and automations.</p>
-                <a class="btn-primary" href="#contact" style="display:inline-block;margin-top:22px">Let’s talk</a>
+                <a id="letsTalk" class="btn-primary" href="#contact" style="display:inline-block;margin-top:22px">Let’s talk</a>
             </section>
             <section id="services">
                 <h2>Services</h2>
@@ -94,23 +110,183 @@
                     <article class="glass service"><h3>Automation</h3><p>Practical automation for everyday tasks.</p></article>
                 </div>
             </section>
+            <section id="process">
+                <h2>How I work</h2>
+                <div class="process-steps">
+                    <article class="glass process-step">
+                        <h3>01. Understand</h3>
+                        <p>We clarify your goals, audience, and what the solution needs to do.</p>
+                    </article>
+                    <article class="glass process-step">
+                        <h3>02. Build</h3>
+                        <p>I create a practical first version, focused on the most important needs.</p>
+                    </article>
+                    <article class="glass process-step">
+                        <h3>03. Refine</h3>
+                        <p>We review the result and polish it so it is ready to use.</p>
+                    </article>
+                </div>
+            </section>
             <section class="glass" id="contact">
                 <h2>Contact</h2>
-                <p>Have a project in mind? <a href="mailto:hello@myco.dev" style="color:var(--accent)">Email me</a>.</p>
+                <p id="contactMessage">Have a project in mind? <a href="mailto:hello@myco.dev" style="color:var(--accent)">Email me</a>.</p>
             </section>
         </main>
         <footer>&copy; <span id="year"></span> Myco Ramos</footer>
     </div>
-    <script>
+
+<script>
+       ScrollTrigger.addEventListener("scrollEnd", () =>
+  console.log("scrolling ended!")
+);
+
+        // Theme toggle
         const page = document.documentElement;
-        const toggle = document.getElementById('themeToggle');
-        toggle.addEventListener('click', () => {
-            const dark = page.classList.toggle('dark');
-            toggle.textContent = dark ? 'Light mode' : 'Dark mode';
-            toggle.setAttribute('aria-pressed', String(dark));
+        const themeToggle = document.getElementById("themeToggle");
+
+        function updateThemeButton() {
+            const isDark = page.classList.contains("dark");
+
+            themeToggle.textContent = isDark
+                ? "Light mode"
+                : "Dark mode";
+
+            themeToggle.setAttribute(
+                "aria-pressed",
+                String(isDark)
+            );
+        }
+
+        themeToggle.addEventListener("click", () => {
+            page.classList.toggle("dark");
+            updateThemeButton();
+
+            if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                gsap.to(themeToggle, {
+                    rotation: "+=360",
+                    duration: 0.6,
+                    ease: "power2.inOut"
+                });
+            }
         });
-     
+
+        console.log('GSAP version:', gsap.version);
+        
+        //Tween
+
+        //gsap.to("h1", { rotation: 360, duration: 5 }); 
+        //gsap.from("h1", { y: 200, opacity: 0, duration: 1 }); 
+        // gsap.fromTo("h1", { opacity: 0, y: -50 }, { opacity: 1, y: 0, duration: 1 }); 
+        // Easing// // gsap.from("h1", { y: -200, opacity: 0, duration: 2, ease: "bounce.out" }); 
+        // Stagger// // gsap.from("li", { y: -200, opacity: 0, duration: 2, stagger: "power2.out" }); 
+        // gsap.from("h2", { y: -200, opacity: 0, duration: 2, stagger: 0.2, ease: "power2.out" }); 
+        // gsap.from("p", { y: -200, opacity: 0, duration: 2, stagger: 0.2, ease: "power2.out" }); 
+        // gsap.from("form", { y: -200, opacity: 0, duration: 2, stagger: 0.2, ease: "power2.out" }); 
+        // gsap.from("button", { y: -200, opacity: 0, duration: 2, stagger: 0.2, ease: "power2.out" }); 
+        // gsap.from("span", { y: -200, opacity: 0, duration: 2, stagger: 0.2, ease: "power2.out" }); 
+        
+        //Timeline
+
+        const pageElements = gsap.utils.toArray(
+            ".logo, nav a, #themeToggle, #refreshPage, .hero > *"
+        );
+
+        function playEntranceAnimation() {
+            if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                return;
+            }
+
+            gsap.fromTo(
+                pageElements,
+                { y: 30, autoAlpha: 0 },
+                {y: 0, autoAlpha: 1, duration: 0.4, stagger: { amount: 2, from: "start" }, ease: "power2.out",overwrite: "auto"});
+
+            gsap.from("#services > h2", {
+                y: 30,
+                autoAlpha: 0,
+                duration: 0.6,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#services",
+                    start: "top 80%",
+                    toggleActions: "play reverse play reverse"
+                }
+            });
+
+            gsap.from(".service", {
+                y: 30,
+                autoAlpha: 0,
+                duration: 0.5,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ".services",
+                    start: "top 85%",
+                    toggleActions: "play reverse play reverse"
+                }
+            });
+
+            gsap.from("#contact > *", {
+                y: 30,
+                autoAlpha: 0,
+                duration: 0.6,
+                stagger: 0.15,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "top 80%",
+                    toggleActions: "play reverse play reverse"
+                }
+            });
+
+            gsap.from("#process > h2, .process-step", {
+                y: 30,
+                autoAlpha: 0,
+                duration: 0.5,
+                stagger: 0.15,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#process",
+                    start: "top 80%",
+                    toggleActions: "play reverse play reverse"
+                }
+            });
+        }
+
+        playEntranceAnimation();
+        document.getElementById("refreshPage").addEventListener("click", () => {
+            window.location.reload();
+        });
+        const letsTalk = document.getElementById("letsTalk");
+        const contactMessage = document.getElementById("contactMessage");
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        function myFunc() {
+            if (!prefersReducedMotion.matches) {
+                gsap.to(letsTalk, {
+                    rotation: "+=1080",
+                    duration: 1.5,
+                    ease: "power2.inOut"
+                });
+            }
+        }
+
+        function animateContactMessage(toggleHighlight, onComplete) {
+            const state = Flip.getState(contactMessage);
+            if (toggleHighlight) {
+                contactMessage.classList.toggle("contact-highlight");
+            } else {
+                contactMessage.classList.add("contact-highlight");
+            }
+
+            if (prefersReducedMotion.matches) {
+                return;
+            }
+
+            
+        }
+
+        
     </script>
 </body>
 </html>
-
